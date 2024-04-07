@@ -45,6 +45,7 @@ import {
   MessageSquareMore,
   Package,
   Package2,
+  PencilIcon,
   Plus,
   RotateCcw,
   Search,
@@ -107,9 +108,15 @@ export function Dashboard() {
   console.log(data);
 
   return (
-    <div className={` min-h-screen mt-2 w-full flex   `}>
-      <div className={`hidden  border-r bg-muted/40 md:${data?.menuOpen ? "block w-3/12" : "hidden"}  `}>
-        <div className="flex h-full max-h-screen flex-col gap-2">
+    <div className={` min-h-screen mt-2  flex   `}>
+      <div
+        className={`  border-r bg-muted/40  md:${
+          data?.menuOpen ? "block w-3/12" : "block w-[4rem]  "
+        } block `}>
+        <div
+          className={`flex h-full  md:${!data?.menuOpen ? "hidden" : "block"}
+          max-h-screen
+        flex-col gap-2`}>
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
             <Button
               variant="secondary"
@@ -119,14 +126,14 @@ export function Dashboard() {
               <span className="">compose</span>
             </Button>
           </div>
-          <div className="flex-1 overflow-scroll scrollbar ">
-            <nav className="grid gap-1 items-start px-2 pb-5 text-sm font-medium lg:px-4">
+          <div className="flex-1 max-h-[80vh]  overflow-scroll scrollbar ">
+            <nav className="grid gap-1 items-start px-3 pb-2 text-sm font-medium lg:px-4">
               <Link
                 href="#"
                 className="flex items-center gap-3 bg-muted hover:bg-muted rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
                 <Inbox className="h-4 w-4" />
                 Inbox
-                <p className="ml-auto flex font-thin  shrink-0 items-center justify-center ">
+                <p className="ml-auto flex font-thin   shrink-0 items-center justify-center ">
                   4152
                 </p>
               </Link>
@@ -167,7 +174,6 @@ export function Dashboard() {
                 )}
 
                 {!isMore ? "More" : "Less"}
-                {/* more links start */}
               </p>
 
               {isMore && (
@@ -503,32 +509,208 @@ export function Dashboard() {
                 Labels
                 <Plus className="h-4 w-4" />
               </p>
+            </nav>
+          </div>
+        </div>
+        {/* hides menu only icon */}
+        <div
+          onMouseEnter={data.handleMouseEnter}
+          onMouseLeave={data.handleMouseLeave}
+          className={`flex h-full  md:${data?.menuOpen ? "hidden" : "block"}
+         max-h-screen hover:$ flex-col gap-2`}>
+          <div className="flex h-14 items-center border-b px-1 lg:h-[60px] ">
+            <Link
+              href="#"
+              className="flex items-center gap-3 hover:bg-muted rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+              <PencilIcon className="h-7 w-7" />
+            </Link>
+          </div>
+          <div className=" w-full max-h-[80vh] overflow-x-hidden overflow-y-scroll scrollbar ">
+            <nav className="grid  gap-1 ">
+              <Link
+                href="#"
+                className="flex items-center gap-3 hover:bg-muted rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                <Inbox className="h-5 w-5" />
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center gap-3 hover:bg-muted rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                <Star className="h-5 w-5" />
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center gap-3 rounded-lg hover:bg-muted  px-3 py-2 transition-all hover:text-primary">
+                <Clock5 className="h-5 w-5" />
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center gap-3 rounded-lg px-3 hover:bg-muted py-2 text-muted-foreground transition-all hover:text-primary">
+                <SendHorizontal className="h-5 w-5" />
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                <ClipboardMinus className="h-5 w-5" />
+              </Link>
+              <p
+                onClick={() => setIsMore((prev) => !prev)}
+                className="flex cursor-pointer items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                {!isMore ? (
+                  <ChevronDown className="h-5 w-5" />
+                ) : (
+                  <ChevronUp className="h-5 w-5" />
+                )}
+
+                {/* more links start */}
+              </p>
+
+              {isMore && (
+                <div>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                    <MdLabelImportantOutline className="h-5 w-5" />
+                  </Link>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                    <MessageSquareMore className="h-5 w-5" />
+                  </Link>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                    <CalendarCheck className="h-5 w-5" />
+                  </Link>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                    <LuMails className="h-5 w-5" />
+                  </Link>
+                  <Link
+                    href="#"
+                    className="flex items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                    <RiSpam2Line className="h-5 w-5" />
+                  </Link>
+
+                  <Link
+                    href="#"
+                    className="flex items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                    <CiTrash className="h-5 w-5" />
+                  </Link>
+
+                  <p
+                    onClick={() => setisCategoryOpen((prev) => !prev)}
+                    className={`flex cursor-pointer items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 ${
+                      isCategoryOpen ? "text-muted-foreground" : "text-primary"
+                    }    transition-all `}>
+                    <span className="flex gap-0 items-center ">
+                      {!isCategoryOpen ? (
+                        <IoMdArrowDropright className="h-5 w-5" />
+                      ) : (
+                        <IoMdArrowDropdown className="h-5 w-5" />
+                      )}
+
+                      <PiTagSimple className="h-5 w-5" />
+                    </span>
+                  </p>
+                  {isCategoryOpen && (
+                    <div className="w-4/5 mx-auto">
+                      <p
+                        onMouseEnter={() => setIsHovered("social")}
+                        onMouseLeave={() => setIsHovered("")}
+                        className="flex items-center cursor-pointer gap-3  hover:bg-muted rounded-lg px-3 py-2  transition-all text-primary">
+                        <Users className="h-4 w-4" />
+                      </p>
+                      <p
+                        onMouseEnter={() => setIsHovered("updates")}
+                        onMouseLeave={() => setIsHovered("")}
+                        className="flex items-center cursor-pointer gap-3 hover:bg-muted rounded-lg px-3 py-2  transition-all text-primary">
+                        <Info className="h-5 w-5" />
+                      </p>
+                      <p
+                        onMouseEnter={() => setIsHovered("forums")}
+                        onMouseLeave={() => setIsHovered("")}
+                        className="flex items-center gap-3 cursor-pointer hover:bg-muted rounded-lg px-3 py-2  transition-all text-primary">
+                        <CopySlash className="h-5 w-5" />
+                      </p>
+                      <p
+                        onMouseEnter={() => setIsHovered("promotions")}
+                        onMouseLeave={() => setIsHovered("")}
+                        className="flex items-center gap-3  cursor-pointer hover:bg-muted rounded-lg px-3 py-2  transition-all text-primary">
+                        <Tag className="h-5 w-5" />
+                      </p>
+                    </div>
+                  )}
+
+                  <Link
+                    href="#"
+                    className="flex items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                    <Settings className="h-5 w-5" />
+                  </Link>
+
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <p className="flex items-center gap-3 rounded-lg hover:bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary">
+                        <Plus className="h-5 w-5" />
+                      </p>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>Edit profile</DialogTitle>
+                        <DialogDescription>
+                          Make changes to your profile here. Click save when
+                          you're done.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label
+                            htmlFor="name"
+                            className="text-right">
+                            Name
+                          </Label>
+                          <Input
+                            id="name"
+                            value="Pedro Duarte"
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label
+                            htmlFor="username"
+                            className="text-right">
+                            Username
+                          </Label>
+                          <Input
+                            id="username"
+                            value="@peduarte"
+                            className="col-span-3"
+                          />
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button type="submit">Save changes</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              )}
+
+              <p className="flex items-center justify-between gap-3  px-3 text-xl py-2 text-muted-foreground transition-all ">
+                <Plus className="h-5 w-5" />
+              </p>
               {/* more links end here */}
             </nav>
           </div>
-          {/* <div className="mt-auto p-4">
-            <Card>
-              <CardHeader className="p-2 pt-0 md:p-4">
-                <CardTitle>Upgrade to Pro</CardTitle>
-                <CardDescription>
-                  Unlock all features and get unlimited access to our support
-                  team.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
-                <Button
-                  size="sm"
-                  className="w-full">
-                  Upgrade
-                </Button>
-              </CardContent>
-            </Card>
-          </div> */}
         </div>
+
+        {/* end only icons section */}
       </div>
 
       <div
-        className={`flex flex-col lg md:${data?.menuOpen ? "w-9/12" : "min-w-full "}`}>
+        className={`flex flex-col md:${
+          data?.menuOpen ? " w-9/12" : "w-full"
+        } w-full  `}>
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
           <Sheet>
             <SheetTrigger asChild>

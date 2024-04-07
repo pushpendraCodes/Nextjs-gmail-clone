@@ -1,3 +1,5 @@
+"use client"
+
 import {
   SlidersHorizontal,
   Search,
@@ -23,12 +25,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useContext } from "react";
+import { menuContext } from "@/context/MenuContext";
 
 const Navbar = () => {
+  const {toggleMenu} = useContext(menuContext);
+
   return (
     <main className="flex justify-between items-center ">
       <div className="left flex gap-5 items-center w-3/12">
         <Menu
+        onClick={toggleMenu}
           cursor={"pointer"}
           color="white"
           size={30}
