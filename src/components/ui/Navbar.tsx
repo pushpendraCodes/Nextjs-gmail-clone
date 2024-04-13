@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   SlidersHorizontal,
@@ -25,21 +25,26 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+
+
 import { useContext } from "react";
 import { menuContext } from "@/context/MenuContext";
 
 const Navbar = () => {
-  const {toggleMenu} = useContext(menuContext);
+  const { toggleMenu } = useContext(menuContext);
 
   return (
-    <main className="flex justify-between items-center ">
+    <main className="flex h-[6vh] justify-between items-center ">
       <div className="left flex gap-5 items-center w-3/12">
         <Menu
-        onClick={toggleMenu}
+          onClick={toggleMenu}
           cursor={"pointer"}
           color="white"
           size={30}
         />
+
+
+
         <Image
           width={100}
           className="cursor-pointer"
@@ -50,7 +55,7 @@ const Navbar = () => {
       </div>
 
       <div className="center w-6/12">
-        <Popover   >
+        <Popover>
           <PopoverTrigger asChild>
             <form className="ml-auto flex-1 w-full sm:flex-initial">
               <div className="relative">
@@ -64,7 +69,7 @@ const Navbar = () => {
               </div>
             </form>
           </PopoverTrigger>
-          <PopoverContent  className="w-full">
+          <PopoverContent className="w-full">
             <div className="grid gap-4">
               <div className="space-y-2">
                 <h4 className="font-medium leading-none">Dimensions</h4>

@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    hostname: "www.gstatic.com"
+};
 
 export default nextConfig;
