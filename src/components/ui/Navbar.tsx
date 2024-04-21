@@ -6,6 +6,7 @@ import {
   CircleHelp,
   Settings,
   CircleUser,
+  CalendarIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { Menu } from "react-feather";
@@ -26,15 +27,66 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { menuContext } from "@/context/MenuContext";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@radix-ui/react-hover-card";
+import { useToast } from "@/components/ui/use-toast";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+type userType = {
+  email: string;
+  image: string;
+  name: string;
+};
 
+type sessionType = {
+  data: {
+    user: userType;
+    // Add other properties if necessary
+  };
+
+  status:string
+  // Other properties can be added if necessary (e.g., status, error)
+};
 const Navbar = () => {
   const { toggleMenu } = useContext(menuContext);
 
+  const { data , status} = useSession() as sessionType;
+  const user = data?.user;
+  const { toast } = useToast();
+  const router = useRouter();
+
+
+  const usersignOut = async () => {
+    await signOut();
+
+
+  };
+
+
+  const navigateToLogin = () => {
+    if (status !== "authenticated") {
+      router.push("/");
+      setTimeout(():void => {
+        toast({
+          title: "Login",
+          description: "Successfully loged out ",
+        });
+      }, 2000)
+    }
+  };
+
+  useEffect(() => {
+    navigateToLogin();
+  }, [status]);
+
   return (
-    <main className="flex h-[6vh] justify-between items-center ">
+    <main className="flex h-[6vh] my-3 px-1 justify-between items-center ">
       <div className="left flex gap-5 items-center w-3/12">
         <Menu
           onClick={toggleMenu}
@@ -42,8 +94,6 @@ const Navbar = () => {
           color="white"
           size={30}
         />
-
-
 
         <Image
           width={100}
@@ -125,21 +175,31 @@ const Navbar = () => {
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="secondary"
-              size="icon"
-              className="rounded-full">
-              <CircleUser className="h-5 w-5" />
-              <span className="sr-only">Toggle user menu</span>
-            </Button>
+          <Button
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full">
+                  {/* <CircleUser  className="h-5 w-5" /> */}
+                  <Image
+                    width={50}
+                    height={50}
+                    className="rounded-full"
+                    alt="user image"
+                    src={user?.image}
+                  />
+
+                  <span className="sr-only">Toggle user menu</span>
+                </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuLabel>Google Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Support</DropdownMenuItem>
+            <DropdownMenuItem>{user?.name}</DropdownMenuItem>
+            <DropdownMenuItem >{user?.email}</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer" onClick={() => usersignOut()}>
+              Logout
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

@@ -1,4 +1,5 @@
-import React from "react";
+"use client"
+
 import { fiftyDummyData } from "../../lib/dummyMail";
 import {
   ArchiveRestore,
@@ -20,31 +21,42 @@ import {
 import { MdLabelImportantOutline } from "react-icons/md";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./button";
+import { useRouter  } from "next/navigation";
 interface ChildComponentProps {
-  mailId: string | null; // Define the type of the 'id' prop
+  mailId?: string | null; // Define the type of the 'id' prop
+  setMailId?: React.Dispatch<React.SetStateAction<string>>;
 }
-const DetailsPage = ({ mailId }: ChildComponentProps) => {
-  console.log(mailId);
+
+
+const DetailsPage = ({ mailId ,setMailId}: ChildComponentProps) => {
+  console.log(mailId)
+  const router = useRouter()
 
   return (
     <div className="container">
       <div className="icons flex gap-8 items-center">
-        <ArrowLeft className="w-5 h-5" />
-        <ArchiveRestore className="w-5 h-5" />
-        <Info className="w-5 h-5" />
-        <Trash2 className="w-5 h-5" />
-        <MessageSquareDot className="w-5 h-5" />
-        <Clock4 className="w-5 h-5" />
-        <CalendarPlus2 className="w-5 h-5" />
-        <MdLabelImportantOutline className="h-5 w-5" />
-        <EllipsisVertical className="h-5 w-5" />
+        <ArrowLeft
+          onClick={() => {
+
+            router.back()
+          }}
+          className="w-5 h-5 cursor-pointer"
+        />
+        <ArchiveRestore className="w-5 h-5 cursor-pointer" />
+        <Info className="w-5 h-5 cursor-pointer" />
+        <Trash2 className="w-5 h-5 cursor-pointer" />
+        <MessageSquareDot className="w-5 h-5 cursor-pointer" />
+        <Clock4 className="w-5 h-5 cursor-pointer" />
+        <CalendarPlus2 className="w-5 h-5 cursor-pointer" />
+        <MdLabelImportantOutline className="h-5 w-5 cursor-pointer" />
+        <EllipsisVertical className="h-5 w-5 cursor-pointer" />
       </div>
 
       <div className="header my-5  flex justify-between ">
         <div className="flex px-5 items-center gap-3 ">
           <p className="text-2xl">Issue 223: Long context</p>
           <button className="p-2 hover:bg-muted rounded-full">
-            <MdLabelImportantOutline className="h-5 w-5" />
+            <MdLabelImportantOutline className="h-5 w-5 cursor-pointer" />
           </button>
           <button className="flex bg-muted p-1 text-xs rounded-md items-center gap-1">
             inbox
@@ -52,8 +64,8 @@ const DetailsPage = ({ mailId }: ChildComponentProps) => {
           </button>
         </div>
         <div className=" flex items-center gap-3">
-          <Printer className="w-5 h-5" />
-          <ExternalLink className="w-5 h-5" />
+          <Printer className="w-5 h-5 cursor-pointer" />
+          <ExternalLink className="w-5 h-5 cursor-pointer" />
         </div>
       </div>
       <div className="userDetails my-4 flex  justify-between w-full">
@@ -113,9 +125,18 @@ const DetailsPage = ({ mailId }: ChildComponentProps) => {
       </div>
 
       <div className="reply flex gap-2 ">
-      <Button className="rounded-2xl px-5 flex items-center gap-2" variant="outline"> <Reply  className="w-5 h-5"/> Reply</Button>
-      <Button className="rounded-2xl px-5 flex items-center gap-2 " variant="outline">  <Forward className="w-5 h-5" /> Forward</Button>
-
+        <Button
+          className="rounded-2xl px-5 flex items-center gap-2"
+          variant="outline">
+          {" "}
+          <Reply className="w-5 h-5 cursor-pointer" /> Reply
+        </Button>
+        <Button
+          className="rounded-2xl px-5 flex items-center gap-2 "
+          variant="outline">
+          {" "}
+          <Forward className="w-5 h-5" /> Forward
+        </Button>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from "react";
 import { fiftyDummyData } from "@/lib/dummyMail";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,15 +16,17 @@ import {
 import { MdLabelImportantOutline } from "react-icons/md";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Button } from "./button";
+import { useRouter } from "next/navigation";
 
 interface props {
-  setMailId: React.Dispatch<React.SetStateAction<string>>;
+  setMailId?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ListingPage = ({ setMailId }: props) => {
   const [currentHoverdMail, setHoverdMail] = useState<string>("");
   const [mailCategory, setmailCategory] = useState<mailCatType>("primary");
   console.log(fiftyDummyData, "fiftyDummyData");
+  const router = useRouter();
   return (
     <div>
       <div className="flex items-center w-10/12  ">
@@ -79,14 +82,11 @@ const ListingPage = ({ setMailId }: props) => {
           return (
             <div
               onClick={() => {
-                setMailId(item.id);
-                const currentUrl = new URL(window.location.href);
+                // setMailId(item.id);
 
-                currentUrl.searchParams.set("mail-id", item.id);
+                router.push(`/dashboard/mail-Details/${item.id}`,{ scroll: true });
 
-                window.history.pushState(null, "", currentUrl.toString());
 
-                console.log("Updated URL:", currentUrl.toString());
               }}
               onMouseEnter={() => setHoverdMail(item.id)}
               onMouseLeave={() => setHoverdMail("")}
